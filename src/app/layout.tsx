@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthContextProvider from "./contexts/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
+import PostContextProvider from "./contexts/PostComtext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,22 +22,24 @@ export default function RootLayout({
       <body className={inter.className}>
         <title>a Board</title>
         <AuthContextProvider>
-          <body className={inter.className}>
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-              transition={Bounce}
-            />
-            {children}
-          </body>
+          <PostContextProvider>
+            <body className={inter.className}>
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+              />
+              {children}
+            </body>
+          </PostContextProvider>
         </AuthContextProvider>
       </body>
     </html>

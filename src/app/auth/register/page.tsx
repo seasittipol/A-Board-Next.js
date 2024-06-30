@@ -12,7 +12,7 @@ export default function Register() {
     if (authUser) {
       window.location.replace("/home");
     }
-  }, []);
+  }, authUser);
 
   return (
     <div className="w-full h-full sm:h-screen flex flex-col-reverse gap-10 sm:flex-row sm:justify-center sm:items-center bg-major">

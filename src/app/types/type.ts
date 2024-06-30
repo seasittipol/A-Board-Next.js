@@ -30,3 +30,25 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface Post {
+  id?: number;
+  title?: string;
+  body?: string;
+  userId: number;
+  category?: string;
+  user?: User;
+  _count?: Count;
+  Comment?: Comment[];
+}
+
+interface Count {
+  Comment: number;
+}
+
+export interface Comment {
+  description: string;
+  userId?: number;
+  postId?: number;
+  user: User;
+}

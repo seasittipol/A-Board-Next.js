@@ -11,10 +11,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
+    console.log(authUser);
     if (authUser) {
       window.location.replace("/home");
     }
-  }, []);
+  }, authUser);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
