@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import { findAllPostsApi } from "../apis/post";
-import { toast } from "react-toastify";
+"use client";
+import React from "react";
+import useAuth from "../hooks/useAuth";
 
 export default function PostPage() {
-  const [posts, setPosts] = useState([]);
-  const findAllPosts = async () => {
-    try {
-      const response = await findAllPostsApi();
-      if (response) {
-        setPosts(response.data);
-      }
-    } catch (err: any) {
-      toast.error(err?.response.data.message);
-    }
-  };
+  const { authUser }: any = useAuth();
+  if (!authUser) {
+    window.location.replace("/home");
+  }
   return <div>PostPage</div>;
 }

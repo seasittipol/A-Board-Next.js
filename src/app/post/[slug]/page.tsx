@@ -1,12 +1,17 @@
 "use client";
 import { findOnePostWithIdApi } from "@/app/apis/post";
 import BlogComment from "@/app/components/BlogComment";
+import useAuth from "@/app/hooks/useAuth";
 import { Comment, Post } from "@/app/types/type";
 import { AxiosResponse } from "axios";
 import { MessageCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export default function Page({ params }: { params: { slug: string } }) {
+  const { authUser }: any = useAuth();
+  if (!authUser) {
+    window.location.replace("/home");
+  }
   const [post, setPost] = useState<Post | null>(null);
   const fetchPost = async () => {
     const onePost: AxiosResponse<any, any> = await findOnePostWithIdApi(
