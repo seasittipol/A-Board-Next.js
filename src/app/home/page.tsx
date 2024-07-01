@@ -45,7 +45,7 @@ export default function home() {
         body: content,
         userId: authUser.id,
       };
-      await createPostApi("data");
+      await createPostApi(data);
       closeModal(e);
     } catch (err: any) {
       toast.error(err?.response.data.message);
