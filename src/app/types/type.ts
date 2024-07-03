@@ -50,5 +50,5 @@ export interface Comment {
   description: string;
   userId?: number;
   postId?: number;
-  user: User;
+  user?: User;
 }

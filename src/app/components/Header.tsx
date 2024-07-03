@@ -8,7 +8,6 @@ import Link from "next/link";
 export default function Header() {
   const { authUser }: any = useAuth();
   const router = useRouter();
-  console.log(authUser);
 
   const handleLogout = () => {
     localStorage.removeItem("ACCESS_TOKEN");

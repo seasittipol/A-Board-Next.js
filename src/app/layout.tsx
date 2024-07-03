@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthContextProvider from "./contexts/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PostContextProvider from "./contexts/PostComtext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,6 +25,7 @@ export default function RootLayout({
         <AuthContextProvider>
           <PostContextProvider>
             <body className={inter.className}>
+              {children}
               <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -37,7 +39,6 @@ export default function RootLayout({
                 theme="light"
                 transition={Bounce}
               />
-              {children}
             </body>
           </PostContextProvider>
         </AuthContextProvider>

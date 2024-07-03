@@ -1,7 +1,7 @@
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import React from "react";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 
 export default function layout({
   children,
@@ -9,9 +9,9 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="flex flex-col w-screen">
       <Header />
-      <div className="flex bg-grey100 text-black h-full">
+      <div className="flex bg-grey100 text-black h-full w-screen">
         <Sidebar />
         {children}
       </div>

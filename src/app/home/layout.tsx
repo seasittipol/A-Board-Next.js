@@ -9,9 +9,9 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="flex flex-col w-screen">
       <Header />
-      <div className="flex bg-grey100 text-black h-full">
+      <div className="flex bg-grey100 text-black h-full w-screen">
         <Sidebar />
         {children}
       </div>

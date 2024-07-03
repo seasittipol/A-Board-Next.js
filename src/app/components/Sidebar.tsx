@@ -13,7 +13,7 @@ export default function Sidebar() {
       </div>
       <div className="flex h-10 items-center gap-2">
         <SquarePen />
-        <button>Our Blog</button>
+        <button onClick={() => router.push("/post")}>Our Blog</button>
       </div>
     </div>
   );
