@@ -8,8 +8,12 @@ export default function EditModal({
   title,
   content,
 }: any) {
-  const { setEditCommunity, setEditTitle, setEditContent, closeModal }: any =
-    usePost();
+  const {
+    setEditCommunity,
+    setEditTitle,
+    setEditContent,
+    closeModalEdit,
+  }: any = usePost();
 
   return (
     <dialog id="my_modal_2" className="modal">
@@ -54,7 +58,7 @@ export default function EditModal({
             <Button
               type="button"
               className="bg-white text-success border border-success h-[40px] w-[105px] rounded-md"
-              onClick={closeModal}
+              onClick={closeModalEdit}
             >
               Cancel
             </Button>

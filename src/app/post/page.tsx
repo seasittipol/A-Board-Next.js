@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import usePost from "../hooks/usePost";
 import { Post } from "../types/type";
 import BlogPost from "../components/BlogPost";
+import { sortIdDesc } from "../utility/sortId";
 
 export default function PostPage() {
   const { authUser }: any = useAuth();
@@ -18,7 +19,7 @@ export default function PostPage() {
     <div className="w-3/4 min-h-screen flex flex-col gap-6 py-8 pr-8">
       <SearchBar />
       <div className="flex flex-col rounded-xl overflow-auto">
-        {postWithUserId.map((post: Post, index: number) => (
+        {postWithUserId.sort(sortIdDesc).map((post: Post, index: number) => (
           <BlogPost
             key={index}
             postId={post.id}

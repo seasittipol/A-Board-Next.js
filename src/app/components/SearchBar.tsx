@@ -1,19 +1,11 @@
 import { Search } from "lucide-react";
 import React from "react";
 import Button from "./Button";
-import useAuth from "../hooks/useAuth";
 import CreateModal from "./CreateModal";
+import usePost from "../hooks/usePost";
 
 export default function SearchBar() {
-  const { authUser }: any = useAuth();
-  const openModal = () => {
-    const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
-    if (!authUser) {
-      window.location.replace("/auth/login");
-    } else if (modal) {
-      modal.showModal();
-    }
-  };
+  const { openModalCreate }: any = usePost();
 
   return (
     <div className="flex items-center justify-between gap-8">
@@ -35,7 +27,7 @@ export default function SearchBar() {
         <option>Study</option>
         <option>Game</option>
       </select>
-      <Button onClick={openModal}>Create +</Button>
+      <Button onClick={openModalCreate}>Create +</Button>
       <CreateModal />
     </div>
   );

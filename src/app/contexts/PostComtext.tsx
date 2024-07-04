@@ -1,6 +1,7 @@
 "use client";
-import React, { createContext, ReactNode, useState } from "react";
+import React, { ChangeEvent, createContext, ReactNode, useState } from "react";
 import {
+  createPostApi,
   deletePostWithIdApi,
   findAllPostsApi,
   findPostsWithUserIdApi,
@@ -24,6 +25,15 @@ export default function PostContextProvider({
 }: PostContextProviderProps) {
   const { authUser }: any = useAuth();
   const [posts, setPosts] = useState([]);
+  const [postWithUserId, setPostWithUserId] = useState([]);
+  const [community, setCommunity] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [editPostId, setEditPostId] = useState<number>(0);
+  const [editCommunity, setEditCommunity] = useState<string>("");
+  const [editTitle, setEditTitle] = useState<string>("");
+  const [editContent, setEditContent] = useState<string>("");
+
   const findAllPosts = async () => {
     try {
       const response = await findAllPostsApi();
@@ -35,8 +45,6 @@ export default function PostContextProvider({
     }
   };
 
-  const [postWithUserId, setPostWithUserId] = useState([]);
-
   const fetchPostWithUserId = async () => {
     try {
       const response = await findPostsWithUserIdApi(authUser.id);
@@ -46,12 +54,7 @@ export default function PostContextProvider({
     }
   };
 
-  const [editPostId, setEditPostId] = useState<number>(0);
-  const [editCommunity, setEditCommunity] = useState<string>("");
-  const [editTitle, setEditTitle] = useState<string>("");
-  const [editContent, setEditContent] = useState<string>("");
-
-  const openModal = () => {
+  const openModalEdit = () => {
     const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
     if (!authUser) {
       window.location.replace("/auth/login");
@@ -60,12 +63,59 @@ export default function PostContextProvider({
     }
   };
 
-  const closeModal = () => {
-    // e.preventDefault();
+  const openModalCreate = () => {
+    const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
+    if (!authUser) {
+      window.location.replace("/auth/login");
+    } else if (modal) {
+      setCommunity("");
+      setTitle("");
+      setContent("");
+      modal.showModal();
+    }
+  };
+
+  const closeModalEdit = () => {
     const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
     if (modal) {
       modal.close();
     }
+  };
+
+  const closeModalCreate = () => {
+    const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
+    if (modal) {
+      modal.close();
+    }
+  };
+
+  const handleCreatePost = async (e: React.MouseEvent) => {
+    try {
+      e.preventDefault();
+      const data: Post = {
+        category: community,
+        title: title,
+        body: content,
+        userId: authUser.id,
+      };
+      await createPostApi(data);
+      if (true) {
+        console.log("setsetsetset");
+        setCommunity("");
+        setTitle("");
+        setContent("");
+      }
+      closeModalCreate();
+      findAllPosts();
+      fetchPostWithUserId();
+      toast.success("Create success");
+    } catch (err: any) {
+      toast.error(err?.response.data.message);
+    }
+  };
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setCommunity(e.target.value);
   };
 
   const handleEditPost = (postId: number) => {
@@ -77,7 +127,7 @@ export default function PostContextProvider({
     setEditCommunity(editPost.category);
     setEditTitle(editPost.title);
     setEditContent(editPost.body);
-    openModal();
+    openModalEdit();
   };
 
   const handleSaveForm = async (postId: number) => {
@@ -90,7 +140,7 @@ export default function PostContextProvider({
         userId: authUser.id,
       };
       await updatePostWithIdApi(postId, data);
-      closeModal();
+      closeModalEdit();
       findAllPosts();
       fetchPostWithUserId();
       toast.success("Save post");
@@ -115,6 +165,16 @@ export default function PostContextProvider({
     findAllPosts,
     fetchPostWithUserId,
     postWithUserId,
+    community,
+    title,
+    content,
+    setCommunity,
+    setTitle,
+    setContent,
+    handleCreatePost,
+    handleSelectChange,
+    openModalCreate,
+    closeModalCreate,
     editPostId,
     editCommunity,
     editTitle,
@@ -125,7 +185,7 @@ export default function PostContextProvider({
     handleEditPost,
     handleSaveForm,
     handleDeletePost,
-    closeModal,
+    closeModalEdit,
   };
   return (
     <PostContext.Provider value={contextValue}>{children}</PostContext.Provider>
