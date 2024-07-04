@@ -26,7 +26,7 @@ export default function PostContextProvider({
   const { authUser }: any = useAuth();
   const [posts, setPosts] = useState([]);
   const [postWithUserId, setPostWithUserId] = useState([]);
-  const [community, setCommunity] = useState<string>("");
+  const [community, setCommunity] = useState<string | undefined>(undefined);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [editPostId, setEditPostId] = useState<number>(0);
@@ -68,7 +68,7 @@ export default function PostContextProvider({
     if (!authUser) {
       window.location.replace("/auth/login");
     } else if (modal) {
-      setCommunity("");
+      setCommunity(undefined);
       setTitle("");
       setContent("");
       modal.showModal();

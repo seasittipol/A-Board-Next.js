@@ -4,7 +4,8 @@ import "./globals.css";
 import AuthContextProvider from "./contexts/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PostContextProvider from "./contexts/PostComtext";
+import PostContextProvider from "./contexts/PostContext";
+import SearchContextProvider from "./contexts/SearchContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,22 +25,24 @@ export default function RootLayout({
         <title>a Board</title>
         <AuthContextProvider>
           <PostContextProvider>
-            <body className={inter.className}>
-              {children}
-              <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-              />
-            </body>
+            <SearchContextProvider>
+              <body className={inter.className}>
+                {children}
+                <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                  transition={Bounce}
+                />
+              </body>
+            </SearchContextProvider>
           </PostContextProvider>
         </AuthContextProvider>
       </body>

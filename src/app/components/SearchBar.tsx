@@ -3,9 +3,12 @@ import React from "react";
 import Button from "./Button";
 import CreateModal from "./CreateModal";
 import usePost from "../hooks/usePost";
+import useSearch from "../hooks/useSearch";
 
 export default function SearchBar() {
   const { openModalCreate }: any = usePost();
+  const { inputSearch, handleInputSearch, handleSelectCommunity }: any =
+    useSearch();
 
   return (
     <div className="flex items-center justify-between gap-8">
@@ -14,9 +17,14 @@ export default function SearchBar() {
         <input
           className="bg-grey100 outline-none p-2 w-full"
           placeholder="Search"
+          value={inputSearch}
+          onChange={handleInputSearch}
         />
       </div>
-      <select className="select select-bordered w-full max-w-36">
+      <select
+        className="select select-bordered w-full max-w-36"
+        onChange={handleSelectCommunity}
+      >
         <option disabled selected>
           Community
         </option>
