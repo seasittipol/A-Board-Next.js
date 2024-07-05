@@ -26,7 +26,7 @@ export default function PostContextProvider({
   const { authUser }: any = useAuth();
   const [posts, setPosts] = useState([]);
   const [postWithUserId, setPostWithUserId] = useState([]);
-  const [community, setCommunity] = useState<string | undefined>(undefined);
+  const [community, setCommunity] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [editPostId, setEditPostId] = useState<number>(0);
@@ -69,7 +69,7 @@ export default function PostContextProvider({
     if (!authUser) {
       window.location.replace("/auth/login");
     } else if (modal) {
-      setCommunity(undefined);
+      setCommunity("Choose a community");
       setTitle("");
       setContent("");
       modal.showModal();
@@ -114,17 +114,15 @@ export default function PostContextProvider({
         userId: authUser.id,
       };
       await createPostApi(data);
-      if (true) {
-        console.log("setsetsetset");
-        setCommunity("");
-        setTitle("");
-        setContent("");
-      }
+      setCommunity("Choose a community");
+      setTitle("");
+      setContent("");
       closeModalCreate();
       findAllPosts();
       fetchPostWithUserId();
       toast.success("Create success");
     } catch (err: any) {
+      console.log(err);
       toast.error(err?.response.data.message);
     }
   };

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import usePost from "../hooks/usePost";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
+import useSearch from "../hooks/useSearch";
+import Highlight from "./Highlight";
 
 export default function BlogPost(props: any) {
   const { postId, title, body, category, user, comment } = props;
@@ -18,6 +20,7 @@ export default function BlogPost(props: any) {
     handleSaveForm,
     handleDeletePost,
   }: any = usePost();
+  const { inputSearch }: any = useSearch();
   const router = useRouter();
   return (
     <>
@@ -52,8 +55,14 @@ export default function BlogPost(props: any) {
                 </div>
               </div>
               <div className="flex flex-col">
-                <section className="font-bold text-xl">{title}</section>
-                <p className="break-words font-light">{body}</p>
+                {/* <section className="font-bold text-xl">{title}</section> */}
+                <div className="font-bold text-xl">
+                  <Highlight text={title} highlight={inputSearch} />
+                </div>
+                {/* <p className="break-words font-light">{body}</p> */}
+                <div className="font-light">
+                  <Highlight text={body} highlight={inputSearch} />
+                </div>
               </div>
               <div className="flex gap-2 items-center">
                 <MessageCircle />
