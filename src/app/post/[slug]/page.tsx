@@ -7,7 +7,7 @@ import useAuth from "@/app/hooks/useAuth";
 import usePost from "@/app/hooks/usePost";
 import { Comment, Post } from "@/app/types/type";
 import { AxiosResponse } from "axios";
-import { MessageCircle, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeftFromLine, MessageCircle, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -67,7 +67,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <div className="w-3/4 min-h-screen relative flex-col bg-white text-black gap-2 p-8">
+    <div className="w-full sm:w-3/4 min-h-screen relative flex-col bg-white text-black gap-2 p-6 sm:p-8">
       {authUser && authUser.id === post?.user?.id && (
         <div className="absolute right-0 z-10">
           <button className="px-2" onClick={handleEditPost}>
@@ -78,6 +78,15 @@ export default function Page({ params }: { params: { slug: string } }) {
           </button>
         </div>
       )}
+      <div className="mb-6 flex">
+        <button
+          type="button"
+          className="border rounded-full w-10 h-10 flex justify-center items-center"
+          onClick={() => window.history.back()}
+        >
+          <ArrowLeftFromLine />
+        </button>
+      </div>
       <div className="flex flex-col gap-2">
         <div className=" flex items-center gap-2">
           <img
@@ -95,14 +104,14 @@ export default function Page({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <div>{post?.title}</div>
-        <div className="break-words">{post?.body}</div>
-        <div className="flex">
+      <div className="flex flex-col">
+        <div className="font-bold text-3xl">{post?.title}</div>
+        <div className="break-words font-light">{post?.body}</div>
+        <div className="flex pt-8">
           <MessageCircle /> {post?._count?.Comment} Comments
         </div>
         {!open ? (
-          <div className="py-4">
+          <div className="py-6">
             <button
               className="h-[40px] w-[132px] border-2 rounded-lg border-success text-success"
               onClick={() => setOpen(!open)}

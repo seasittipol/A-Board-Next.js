@@ -25,7 +25,7 @@ export default function CreateModal() {
         <form className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Create Post</h3>
           <select
-            className="select select-bordered w-full max-w-52"
+            className="select select-bordered w-full sm:max-w-52"
             onChange={(e) => setCommunity(e.target.value)}
             value={community}
           >

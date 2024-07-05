@@ -33,8 +33,11 @@ export default function Login() {
     }
   };
   return (
-    <div className="w-full h-screen flex justify-center  items-center bg-major">
-      <form onSubmit={handleSubmit} className="w-3/5 p-36 justify-center flex">
+    <div className="w-full min-h-screen sm:h-screen flex flex-col-reverse gap-10 sm:flex-row justify-end sm:justify-center sm:items-center bg-major">
+      <form
+        onSubmit={handleSubmit}
+        className="sm:w-3/5 sm:p-36 justify-center flex"
+      >
         <div className="flex flex-col gap-2 text-black w-96">
           <div className="text-white">Login</div>
           <input
@@ -60,7 +63,7 @@ export default function Login() {
           </Link>
         </div>
       </form>
-      <div className="h-full w-2/5 bg-minor flex flex-col justify-center items-center rounded-l-3xl">
+      <div className="h-96 sm:h-full sm:w-2/5 bg-minor flex flex-col justify-center items-center rounded-b-3xl sm:rounded-r-none sm:rounded-l-3xl">
         <img
           className="w-96"
           src="https://plus.unsplash.com/premium_photo-1661963429761-5f27bcb6cdaa?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

@@ -9,16 +9,17 @@ import { sortIdDesc } from "../utility/sortId";
 import useSearch from "../hooks/useSearch";
 
 export default function PostPage() {
-  const { authUser }: any = useAuth();
+  const { authUser, setUrlPath }: any = useAuth();
   const { fetchPostWithUserId, postWithUserId }: any = usePost();
   const { selectCommunity, setSelectCommunity }: any = useSearch();
 
   useEffect(() => {
     fetchPostWithUserId();
+    setUrlPath(window.location.pathname.split("/")[1]);
   }, authUser);
 
   return (
-    <div className="w-3/4 min-h-screen flex flex-col gap-6 py-8 pr-8">
+    <div className="w-full sm:w-3/4 min-h-screen flex flex-col gap-6 sm:py-8 sm:pr-8 px-4">
       <SearchBar />
       <div className="flex flex-col rounded-xl overflow-auto">
         {!selectCommunity

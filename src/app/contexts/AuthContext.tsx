@@ -4,6 +4,7 @@ import validate_register from "../validations/validate_register";
 import { RegisterType, User } from "../types/type";
 import { fetchMe, register } from "../apis/auth";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const initailRegister: RegisterType = {
   username: "",
@@ -14,18 +15,21 @@ const initailRegister: RegisterType = {
   email: "",
 };
 
-interface AuthContextType {
-  registerForm: RegisterType;
-  handleForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmitRegister: (e: React.FormEvent<HTMLFormElement>) => void;
-  errorHandler: RegisterType;
-}
-const defaultValue: AuthContextType = {
-  registerForm: initailRegister,
-  handleForm: () => {},
-  handleSubmitRegister: () => {},
-  errorHandler: initailRegister,
-};
+// interface AuthContextType {
+//   registerForm: RegisterType;
+//   handleForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
+//   handleSubmitRegister: (e: React.FormEvent<HTMLFormElement>) => void;
+//   errorHandler: RegisterType;
+// }
+// const defaultValue: AuthContextType = {
+//   registerForm: initailRegister,
+//   handleForm: () => {},
+//   handleSubmitRegister: () => {},
+//   errorHandler: initailRegister,
+// };
+
+interface AuthContextType {}
+const defaultValue = {};
 
 export const AuthContext = createContext<AuthContextType>(defaultValue);
 
@@ -36,9 +40,11 @@ interface AuthContextProviderProps {
 export default function AuthContextProvider({
   children,
 }: AuthContextProviderProps) {
+  const router = useRouter();
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [registerForm, setRegisterForm] = useState(initailRegister);
   const [errorHandler, setErrorHandler] = useState(initailRegister);
+  const [urlPath, setUrlPath] = useState("");
 
   const fetchUser = async () => {
     try {
@@ -80,12 +86,41 @@ export default function AuthContextProvider({
       console.log(err);
     }
   };
+
+  const [openNav, setOpenNav] = useState<boolean>(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("ACCESS_TOKEN");
+    window.location.replace("/home");
+  };
+
+  const handleToggleNav = () => {
+    setOpenNav(!openNav);
+  };
+
+  const handleClickHomePage = () => {
+    setOpenNav(false);
+    router.push("/home");
+  };
+
+  const handleClickOurBlogPage = () => {
+    setOpenNav(false);
+    router.push("/post");
+  };
   const contextValue = {
     authUser,
+    urlPath,
+    setUrlPath,
     registerForm,
     handleForm,
     handleSubmitRegister,
     errorHandler,
+    handleLogout,
+    openNav,
+    setOpenNav,
+    handleToggleNav,
+    handleClickHomePage,
+    handleClickOurBlogPage,
   };
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

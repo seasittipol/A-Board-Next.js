@@ -26,7 +26,7 @@ export default function EditModal({
         <form className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Edit Post</h3>
           <select
-            className="select select-bordered w-full max-w-52"
+            className="select select-bordered w-full sm:max-w-52"
             onChange={(e) => setEditCommunity(e.target.value)}
             value={community}
           >

@@ -33,6 +33,7 @@ export default function PostContextProvider({
   const [editCommunity, setEditCommunity] = useState<string>("");
   const [editTitle, setEditTitle] = useState<string>("");
   const [editContent, setEditContent] = useState<string>("");
+  const [deletePostId, setDeletePostId] = useState<number>(0);
 
   const findAllPosts = async () => {
     try {
@@ -75,6 +76,14 @@ export default function PostContextProvider({
     }
   };
 
+  const openModalDelete = () => {
+    const modal = document.getElementById("my_modal_4") as HTMLDialogElement;
+    if (!authUser) {
+      window.location.replace("/auth/login");
+    } else if (modal) {
+      modal.showModal();
+    }
+  };
   const closeModalEdit = () => {
     const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
     if (modal) {
@@ -89,6 +98,12 @@ export default function PostContextProvider({
     }
   };
 
+  const closeModalDelete = () => {
+    const modal = document.getElementById("my_modal_4") as HTMLDialogElement;
+    if (modal) {
+      modal.close();
+    }
+  };
   const handleCreatePost = async (e: React.MouseEvent) => {
     try {
       e.preventDefault();
@@ -151,9 +166,21 @@ export default function PostContextProvider({
 
   const handleDeletePost = async (postId: number) => {
     try {
+      openModalDelete();
+      setDeletePostId(postId);
+      console.log(postId);
+    } catch (err: any) {
+      console.log(err?.response.data.message);
+    }
+  };
+
+  const handleConfirmDeletePost = async (postId: number) => {
+    try {
+      console.log(postId);
       await deletePostWithIdApi(postId);
       findAllPosts();
       fetchPostWithUserId();
+      closeModalDelete();
       toast.success("Delete post success");
     } catch (err: any) {
       toast.error(err?.response.data.message);
@@ -186,6 +213,9 @@ export default function PostContextProvider({
     handleSaveForm,
     handleDeletePost,
     closeModalEdit,
+    closeModalDelete,
+    deletePostId,
+    handleConfirmDeletePost,
   };
   return (
     <PostContext.Provider value={contextValue}>{children}</PostContext.Provider>

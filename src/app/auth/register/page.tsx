@@ -5,7 +5,7 @@ import InputAuth from "@/app/components/InputAuth";
 import useAuth from "@/app/hooks/useAuth";
 
 export default function Register() {
-  const { handleSubmitRegister, errorHandler } = useAuth();
+  const { handleSubmitRegister, errorHandler }: any = useAuth();
   const { authUser }: any = useAuth();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function Register() {
   }, authUser);
 
   return (
-    <div className="w-full h-full sm:h-screen flex flex-col-reverse gap-10 sm:flex-row sm:justify-center sm:items-center bg-major">
+    <div className="w-full min-h-screen sm:h-screen flex flex-col-reverse gap-10 sm:flex-row justify-end sm:justify-center sm:items-center bg-major">
       <form
         onSubmit={handleSubmitRegister}
         className="sm:w-3/5 sm:p-36 justify-center flex"
@@ -87,7 +87,7 @@ export default function Register() {
           </Link>
         </div>
       </form>
-      <div className="h-96 sm:h-full sm:w-2/5 bg-minor flex flex-col justify-center items-center rounded-b-3xl sm:rounded-l-3xl">
+      <div className="h-96 sm:h-full sm:w-2/5 bg-minor flex flex-col justify-center items-center rounded-b-3xl sm:rounded-r-none sm:rounded-l-3xl">
         <img
           className="w-64  sm:w-96"
           src="https://plus.unsplash.com/premium_photo-1661963429761-5f27bcb6cdaa?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

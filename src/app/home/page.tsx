@@ -6,17 +6,20 @@ import BlogPost from "../components/BlogPost";
 import SearchBar from "../components/SearchBar";
 import { sortIdDesc } from "../utility/sortId";
 import useSearch from "../hooks/useSearch";
+import useAuth from "../hooks/useAuth";
 
 export default function home() {
+  const { setUrlPath }: any = useAuth();
   const { posts, findAllPosts }: any = usePost();
   const { selectCommunity }: any = useSearch();
 
   useEffect(() => {
     findAllPosts();
+    setUrlPath(window.location.pathname.split("/")[1]);
   }, []);
 
   return (
-    <div className="w-3/4 min-h-screen flex flex-col gap-6 py-8 pr-8">
+    <div className="w-full sm:w-3/4 min-h-screen flex flex-col gap-6 sm:py-8 sm:pr-8 px-4">
       <SearchBar />
       <div className="flex flex-col rounded-xl overflow-auto w-full">
         {!selectCommunity
